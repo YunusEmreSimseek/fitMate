@@ -1,0 +1,833 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%lld cm" : {
+
+    },
+    "%lld kg" : {
+
+    },
+    "%lld/%lld steps" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld/%2$lld steps"
+          }
+        }
+      }
+    },
+    "appNameFirst" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fit"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fit"
+          }
+        }
+      }
+    },
+    "appNameLast" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mate"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mate"
+          }
+        }
+      }
+    },
+    "Ask your AI Coach" : {
+
+    },
+    "BPM" : {
+
+    },
+    "Calorie Goal: %lld kcal" : {
+
+    },
+    "chatAIName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FitMate"
+          }
+        }
+      }
+    },
+    "chatMistralAIName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "MistralAI"
+          }
+        }
+      }
+    },
+    "chatOpenAIName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OpenAI"
+          }
+        }
+      }
+    },
+    "chatPlaceholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Write a message"
+          }
+        }
+      }
+    },
+    "chatTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI Coach"
+          }
+        }
+      }
+    },
+    "chatUserName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User"
+          }
+        }
+      }
+    },
+    "Daily Goals" : {
+
+    },
+    "errorEmailAlreadyInUse" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This email is already in use. Try signing in."
+          }
+        }
+      }
+    },
+    "errorEmptyEmail" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter your email address."
+          }
+        }
+      }
+    },
+    "errorEmptyName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter your name."
+          }
+        }
+      }
+    },
+    "errorEmptyPassword" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter a password."
+          }
+        }
+      }
+    },
+    "errorInvalidEmail" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter a valid email address."
+          }
+        }
+      }
+    },
+    "errorPasswordsDoNotMatch" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwords do not match. Please try again."
+          }
+        }
+      }
+    },
+    "errorUnknown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An unexpected error occurred. Please try again later."
+          }
+        }
+      }
+    },
+    "errorWeakPassword" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your password is too weak. Please choose a stronger password."
+          }
+        }
+      }
+    },
+    "Heart Rate" : {
+
+    },
+    "homeGoodAfternoon" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good Afternoon"
+          }
+        }
+      }
+    },
+    "homeGoodEvening" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good Evening"
+          }
+        }
+      }
+    },
+    "homeGoodMorning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good Morning"
+          }
+        }
+      }
+    },
+    "homeGoodNight" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good Night"
+          }
+        }
+      }
+    },
+    "homeTabViewChat" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AI Chat"
+          }
+        }
+      }
+    },
+    "homeTabViewHome" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
+          }
+        }
+      }
+    },
+    "homeTabViewProfile" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile"
+          }
+        }
+      }
+    },
+    "homeTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Home"
+          }
+        }
+      }
+    },
+    "Key" : {
+      "extractionState" : "manual"
+    },
+    "loginBottomText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don’t have an account ?"
+          }
+        }
+      }
+    },
+    "loginButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log In"
+          }
+        }
+      }
+    },
+    "loginEmail" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email *"
+          }
+        }
+      }
+    },
+    "loginPassword" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password *"
+          }
+        }
+      }
+    },
+    "loginSignUpButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign up"
+          }
+        }
+      }
+    },
+    "loginTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log in to your account"
+          }
+        }
+      }
+    },
+    "Need workout tips? Nutrition advice?" : {
+
+    },
+    "onboardBottomButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        }
+      }
+    },
+    "onboardGenderBottomText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "None of the above"
+          }
+        }
+      }
+    },
+    "onboardGenderFemale" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Female"
+          }
+        }
+      }
+    },
+    "onboardGenderMale" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Male"
+          }
+        }
+      }
+    },
+    "onboardGenderSecondTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select your birth date"
+          }
+        }
+      }
+    },
+    "onboardGenderTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What is your gender ?"
+          }
+        }
+      }
+    },
+    "onboardGoalGainMusclesSubTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Build mass & strength"
+          }
+        }
+      }
+    },
+    "onboardGoalGainMusclesTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gain muscles"
+          }
+        }
+      }
+    },
+    "onboardGoalGetFitterSubTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tone up & feel healthy"
+          }
+        }
+      }
+    },
+    "onboardGoalGetFitterTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get fitter"
+          }
+        }
+      }
+    },
+    "onboardGoalLoseWeightSubTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Burn fat & get lean"
+          }
+        }
+      }
+    },
+    "onboardGoalLoseWeightTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lose weight"
+          }
+        }
+      }
+    },
+    "onboardGoalTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What is your goal ?"
+          }
+        }
+      }
+    },
+    "onboardPhysicalHeight" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Height"
+          }
+        }
+      }
+    },
+    "onboardPhysicalTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your height & weight ?"
+          }
+        }
+      }
+    },
+    "onboardPhysicalWeight" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weight"
+          }
+        }
+      }
+    },
+    "onboardSubTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let us know you better"
+          }
+        }
+      }
+    },
+    "profileAge" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Age"
+          }
+        }
+      }
+    },
+    "profileEmail" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        }
+      }
+    },
+    "profileGender" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gender"
+          }
+        }
+      }
+    },
+    "profileGoals" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Goals"
+          }
+        }
+      }
+    },
+    "profileHeight" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Height"
+          }
+        }
+      }
+    },
+    "profilePersonalInformation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personal Information"
+          }
+        }
+      }
+    },
+    "profileSignOut" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Out"
+          }
+        }
+      }
+    },
+    "profileSignOutCancel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "profileSignOutDialog" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to log out?"
+          }
+        }
+      }
+    },
+    "profileTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile"
+          }
+        }
+      }
+    },
+    "profileWeight" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weight"
+          }
+        }
+      }
+    },
+    "Save Goals" : {
+
+    },
+    "signUpBottomText" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Already have an account ?"
+          }
+        }
+      }
+    },
+    "signUpButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Up"
+          }
+        }
+      }
+    },
+    "signUpEmail" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your email *"
+          }
+        }
+      }
+    },
+    "signUpLoginButton" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log in"
+          }
+        }
+      }
+    },
+    "signUpName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your name and surname *"
+          }
+        }
+      }
+    },
+    "signUpPassword" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create password *"
+          }
+        }
+      }
+    },
+    "signUpRepeatPassword" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Repeat password *"
+          }
+        }
+      }
+    },
+    "signUpTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create an account"
+          }
+        }
+      }
+    },
+    "Sleep Goal: %.1f hours" : {
+
+    },
+    "Step Goal: %lld steps" : {
+
+    },
+    "Step Progress" : {
+
+    },
+    "Time" : {
+
+    },
+    "welcomeGetStarted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get Started"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hadi Başlayalım"
+          }
+        }
+      }
+    },
+    "welcomeSubTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your pocket fitness coach."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cebinizdeki fitness antrenörü."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
