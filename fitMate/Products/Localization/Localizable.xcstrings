@@ -60,6 +60,9 @@
     "BPM" : {
 
     },
+    "Bugünün Kaydını Gir" : {
+
+    },
     "Calorie Goal: %lld kcal" : {
 
     },
@@ -130,6 +133,18 @@
       }
     },
     "Daily Goals" : {
+
+    },
+    "Diyet" : {
+
+    },
+    "Diyet Süreci Başlat" : {
+
+    },
+    "Diyet Sürecini Başlat" : {
+
+    },
+    "Diyet Süresi: %lld gün" : {
 
     },
     "errorEmailAlreadyInUse" : {
@@ -220,7 +235,34 @@
         }
       }
     },
+    "Geçmiş Günleri Gör" : {
+
+    },
+    "Günlük Adım: %lld" : {
+
+    },
+    "Günlük Hedefler" : {
+
+    },
+    "Günlük Kalori: %lld kcal" : {
+
+    },
     "Heart Rate" : {
+
+    },
+    "Hedef Kilo Kaybı:" : {
+
+    },
+    "Hedef Kilo: %.1f kg" : {
+
+    },
+    "Hedef Kilonuz:" : {
+
+    },
+    "Hedeflerin" : {
+
+    },
+    "Henüz bir diyet süreci başlatmadın." : {
 
     },
     "homeGoodAfternoon" : {
@@ -313,6 +355,12 @@
     },
     "Key" : {
       "extractionState" : "manual"
+    },
+    "kg" : {
+
+    },
+    "Kilo Hedefi" : {
+
     },
     "loginBottomText" : {
       "extractionState" : "manual",
@@ -691,6 +739,9 @@
         }
       }
     },
+    "Protein Hedefi: %lld g" : {
+
+    },
     "Save Goals" : {
 
     },
@@ -791,6 +842,12 @@
     "Step Progress" : {
 
     },
+    "Süre" : {
+
+    },
+    "Süre: %lld gün" : {
+
+    },
     "Time" : {
 
     },
@@ -827,6 +884,9 @@
           }
         }
       }
+    },
+    "Yükleniyor..." : {
+
     }
   },
   "version" : "1.0"
