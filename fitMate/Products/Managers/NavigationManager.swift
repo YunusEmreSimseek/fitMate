@@ -39,6 +39,7 @@ final class NavigationManager {
 enum TabDestination: String, Hashable, CaseIterable {
     case home
     case chat
+    case track
     case profile
 
     var imageName: String {
@@ -49,6 +50,8 @@ enum TabDestination: String, Hashable, CaseIterable {
             return "brain.head.profile"
         case .profile:
             return "person"
+        case .track:
+            return "chart.bar.xaxis"
         }
     }
 }

@@ -15,4 +15,22 @@ extension View {
             self
         }
     }
+
+    func dynamicHeight(_ ratio: CGFloat) -> some View {
+        GeometryReader { geometry in
+            self.frame(height: geometry.size.height * ratio)
+        }
+    }
+
+    func dynamicWidth(_ ratio: CGFloat) -> some View {
+        GeometryReader { geometry in
+            self.frame(width: geometry.size.width * ratio)
+        }
+    }
+
+    func dynamicSize(width ratioWidth: CGFloat, height ratioHeight: CGFloat) -> some View {
+        GeometryReader { geometry in
+            self.frame(width: geometry.size.width * ratioWidth, height: geometry.size.height * ratioHeight)
+        }
+    }
 }

@@ -59,8 +59,8 @@ final class DietService {
             try db.collection(usersCollection)
                 .document(userId)
                 .collection(dietsCollection)
-                .document("activePlan")
-                .collection("dailyLogs")
+                .document("dailyLogs")
+                .collection("list")
                 .document(log.dateString)
                 .setData(from: log, merge: true)
 
@@ -75,6 +75,8 @@ final class DietService {
             let snapshot = try await db.collection(usersCollection)
                 .document(userId)
                 .collection(dietsCollection)
+                .document("dailyLogs")
+                .collection("list")
                 .order(by: "dateString", descending: true)
                 .limit(to: lastDays)
                 .getDocuments()
@@ -85,6 +87,21 @@ final class DietService {
         } catch {
             logManager.error("[DietService] Daily Diet logs fetch failed: \(error.localizedDescription)")
             return []
+        }
+    }
+
+    func deleteDailyDietLog(for userId: String, dateString: String) async {
+        do {
+            try await db.collection(usersCollection)
+                .document(userId)
+                .collection(dietsCollection)
+                .document("dailyLogs")
+                .collection("list")
+                .document(dateString)
+                .delete()
+            logManager.info("[DietService] Daily Diet log deleted successfully for \(dateString)")
+        } catch {
+            logManager.error("[DietService] Daily Diet log deletion failed: \(error.localizedDescription)")
         }
     }
 }

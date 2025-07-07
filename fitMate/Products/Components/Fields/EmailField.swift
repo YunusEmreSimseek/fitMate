@@ -16,14 +16,13 @@ struct EmailField: View {
                 .foregroundStyle(.cBlue)
 
             TextField("", text: $text)
-                .font(.normal)
                 .submitLabel(.done)
                 .keyboardType(.emailAddress)
                 .textContentType(.emailAddress)
                 .autocorrectionDisabled()
                 .textInputAutocapitalization(.never)
                 .focused($isFocused)
-                .allPadding(.medium3)
+                .allPadding()
         }
         .hPadding()
         .background(

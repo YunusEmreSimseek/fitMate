@@ -7,7 +7,7 @@
 import FirebaseFirestore
 
 final class UserService: IUserService {
-    private let db = Firestore.firestore()
+    private lazy var db = Firestore.firestore()
     private let usersCollection = FirebaseCollections.users.rawValue
     private let logManager = AppContainer.shared.logManager
 
@@ -18,7 +18,7 @@ final class UserService: IUserService {
             throw UserServiceError.invalidUserID
         }
         do {
-            try await db.collection(usersCollection).document(uid).setData(from: user)
+            try db.collection(usersCollection).document(uid).setData(from: user)
             logManager.info("[UserService] User successfully created with ID: \(uid)")
         } catch {
             logManager.error("[UserService] CreateUser failed with error: \(error.localizedDescription)")
@@ -33,7 +33,7 @@ final class UserService: IUserService {
             throw UserServiceError.invalidUserID
         }
         do {
-            try await db.collection(usersCollection).document(uid).setData(from: user, merge: true)
+            try db.collection(usersCollection).document(uid).setData(from: user, merge: true)
             logManager.info("[UserService] User successfully updated with ID: \(uid)")
         } catch {
             logManager.error("[UserService] UpdateUser failed with error: \(error.localizedDescription)")
@@ -76,7 +76,7 @@ enum UserServiceError: LocalizedError {
             return "The user could not be found."
         case .parsingError:
             return "Failed to parse user data."
-        case .unknownError(let error):
+        case let .unknownError(error):
             return "Unexpected error: \(error.localizedDescription)"
         }
     }

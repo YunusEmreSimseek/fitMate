@@ -15,10 +15,44 @@ final class MistralAIService: AIServiceProtocol {
         self.userSessionManager = userSessionManager
     }
 
-    private let url = "none"
+    private let url = "https://f242-35-247-156-102.ngrok-free.app/ask"
 
-    func sendMessage(_ messages: [String]) async throws -> String {
-        let request = MistralAIRequest(messages: messages, userProfile: userSessionManager.currentUser?.toAIServiceUserProfile() ?? AIServiceUserProfile.dummyUserProfile)
+    func sendMessageOnSuggestionType(_ messages: [MessageModel]) async throws -> SuggestionPayload {
+        guard let user = userSessionManager.currentUser else { return SuggestionPayload(answer: "No connection to Mistral AI, please try again later.", suggestion: nil) }
+        let prompt = MistralAIPrompts.message.systemPrompt(user: user, messages: messages)
+        let request = MistralAIRequest(prompt: prompt)
+        let response = try await AF.request(
+            url,
+            method: .post,
+            parameters: request,
+            encoder: JSONParameterEncoder.default
+        )
+        .validate()
+        .serializingDecodable(MistralAIResponse.self).value
+        return SuggestionPayload(answer: response.answer, suggestion: nil)
+    }
+
+    func sendMessage(_: [MessageModel]) async throws -> String {
+//        guard let user = userSessionManager.currentUser else { return "" }
+//        let prompt = buildFullPromptAsList(messages: messages)
+//        let request = MistralAIRequest(messages: prompt, userProfile: user.toAIUserModel().toPrompt())
+//        let response = try await AF.request(
+//            url,
+//            method: .post,
+//            parameters: request,
+//            encoder: JSONParameterEncoder.default
+//        )
+//        .validate()
+//        .serializingDecodable(MistralAIResponse.self).value
+
+//        return response.answer
+        return ""
+    }
+
+    func sendMessageWithImage(imageUrl: String, messages: [MessageModel]) async throws -> String {
+        guard let user = userSessionManager.currentUser else { return "No connection to Mistral AI, please try again later." }
+        let prompt = MistralAIPrompts.messageWithImage.systemPrompt(user: user, messages: messages, imageURL: imageUrl)
+        let request = MistralAIRequest(prompt: prompt)
         let response = try await AF.request(
             url,
             method: .post,
@@ -31,7 +65,21 @@ final class MistralAIService: AIServiceProtocol {
         return response.answer
     }
 
-    func sendMessageWithImage(imageUrl: String, message: String) async throws -> String {
-        return ""
+    private func buildFullPromptAsList(messages: [MessageModel], limit: Int = 10) -> [String] {
+        var prompt: [String] = []
+        let lastMessages = messages.suffix(limit)
+
+        for message in lastMessages {
+            switch message.role {
+            case .user:
+                prompt.append("User: \(message.text)")
+            case .assistant:
+                prompt.append("AI: \(message.text)")
+            case .system:
+                continue
+            }
+        }
+
+        return prompt
     }
 }

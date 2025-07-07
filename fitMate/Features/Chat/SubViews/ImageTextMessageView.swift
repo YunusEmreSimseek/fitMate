@@ -15,21 +15,22 @@ struct ImageTextMessageView: View {
         VStack {
             HStack {
                 Spacer()
-                VStack(alignment: .leading, spacing: 2) {
+                VStack(alignment: .trailing, spacing: 2) {
                     Text(userSessionManager.currentUser?.name ?? LocaleKeys.Chat.userName.localized)
                         .font(.footnote)
+                        .fontWeight(.semibold)
                         .foregroundColor(.gray)
 
                     AsyncImage(url: URL(string: imageUrl)) { phase in
                         switch phase {
                         case .empty:
                             ProgressView()
-                        case .success(let image):
+                        case let .success(image):
                             image
                                 .resizable()
                                 .scaledToFit()
                                 .clipShape(.rect(cornerRadius: .low))
-                                .frame(maxHeight: .dynamicHeight(height: 0.3))
+                                .frame(maxHeight: .dynamicHeight(height: 0.25))
                         case .failure:
                             Image(systemName: "xmark.octagon")
                                 .foregroundColor(.red)
@@ -44,15 +45,20 @@ struct ImageTextMessageView: View {
             HStack(alignment: .bottom) {
                 Spacer()
                 userImage
-                Text(message.text)
-                    .allPadding()
-                    .foregroundColor(.primary)
-                    .background(
-                        message.role == .user
-                            ? Color.cBlue : Color(.cGray)
-                    )
-                    .clipShape(RoundedRectangle(cornerRadius: .low))
-                    .shadow(color: .primary.opacity(0.1), radius: 8, x: 0, y: 4)
+                ZStack(alignment: .bottomTrailing) {
+                    Text(message.text)
+                        .font(.callout)
+                        .foregroundColor(.primary)
+                        .trailingPadding(.dynamicWidth(width: 0.06))
+                        .card(cornerRadius: .low, padding: .low)
+
+                    Text(message.createdAt.formattedTime())
+                        .font(.caption2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.gray)
+                        .trailingPadding(4)
+                        .bottomPadding(2)
+                }
             }
         }
     }

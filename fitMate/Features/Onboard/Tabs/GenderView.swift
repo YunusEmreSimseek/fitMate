@@ -29,7 +29,7 @@ private struct TopTitlesColumn: View {
         VStack(spacing: .low) {
             Text(LocaleKeys.Onboard.Gender.title.localized)
                 .multilineTextAlignment(.center)
-                .font(.title)
+                .font(.title2)
                 .bold()
             Text(LocaleKeys.Onboard.subTitle.localized)
         }

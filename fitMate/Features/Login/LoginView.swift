@@ -8,19 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State private var viewModel: LoginViewModel
-
-    init(userSessionManager: UserSessionManager = AppContainer.shared.userSessionManager,
-         navigationManager: NavigationManager = AppContainer.shared.navigationManager,
-         userService: IUserService = AppContainer.shared.userService,
-         userAuthService: IUserAuthService = AppContainer.shared.userAuthService)
-    {
-        _viewModel = State(initialValue: LoginViewModel(
-            userSessionManager: userSessionManager,
-            navigationManager: navigationManager,
-            userService: userService,
-            userAuthService: userAuthService))
-    }
+    @State private var viewModel: LoginViewModel = .init()
 
     var body: some View {
         ZStack {
@@ -41,16 +29,12 @@ struct LoginView: View {
     }
 }
 
-#Preview {
-    LoginView()
-}
-
 private struct TopTitlesColumn: View {
     var body: some View {
         VStack {
             AppNameText()
             Text(LocaleKeys.Login.title.localized)
-                .font(.title2)
+                .font(.title3)
                 .fontWeight(.bold)
         }
     }
@@ -64,19 +48,21 @@ private struct CenterFieldsAndButtonColumn: View {
             VStack(alignment: .leading, spacing: .low) {
                 VStack(alignment: .leading, spacing: .low3) {
                     Text(LocaleKeys.Login.email.localized)
-                        .font(.normal)
-                        .fontWeight(.medium)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.secondary)
                     EmailField(text: $viewModel.emailValue)
                 }
                 VStack(alignment: .leading, spacing: .low3) {
                     Text(LocaleKeys.Login.password.localized)
-                        .font(.normal)
-                        .fontWeight(.medium)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.secondary)
                     PasswordField(text: $viewModel.passwordValue)
                 }
                 if let errorMessage = viewModel.errorMessage {
                     Text(errorMessage.localized)
-                        .font(.normal)
+                        .font(.subheadline)
                         .foregroundColor(.red)
                 }
             }
@@ -101,4 +87,9 @@ private struct BottomTextsRow: View {
             .bold()
         }
     }
+}
+
+#Preview {
+    LoginView()
+        .environment(LoginViewModel())
 }

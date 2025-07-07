@@ -1,61 +1,69 @@
 //
-//  ProfileViewModel.swift
+//  NewProfileViewModel.swift
 //  fitMate
 //
-//  Created by Emre Simsek on 13.04.2025.
+//  Created by Emre Simsek on 17.06.2025.
 //
 
-import Foundation
+import SwiftUI
 
 @Observable
 final class ProfileViewModel {
-    var currentUser: UserModel?
-    var showLogoutAlert: Bool = false
-    var stepGoal: Double
-    var calorieGoal: Double
-    var sleepGoal: Double
+    var showGeneralSheet = false
+    var showLogoutAlert = false
+    var showNotificationSheet = false
+    var showUnitsSheet = false
+    var showUserUpdateSuccessSnackbar = false
+    var updatedUser: UserModel?
+    var checkForUpdates: Bool {
+        guard let user = userSessionManager.currentUser else { return false }
+        if user != updatedUser {
+            return true
+        }
+        return false
+    }
 
     private let userSessionManager: UserSessionManager
     private let navigationManager: NavigationManager
-    private let goalManager: GoalManager
     private let userAuthService: IUserAuthService
+    let userWorkoutManager: UserWorkoutManager
+    let userDietManager: UserDietManager
+    private let healthKitManager: HealthKitManager
 
     init(userSessionManager: UserSessionManager = AppContainer.shared.userSessionManager,
          navigationManager: NavigationManager = AppContainer.shared.navigationManager,
-         goalManager: GoalManager = AppContainer.shared.goalManager,
-         userAuthService: IUserAuthService = AppContainer.shared.userAuthService)
+         userAuthService: IUserAuthService = AppContainer.shared.userAuthService,
+         userWorkoutManager: UserWorkoutManager = AppContainer.shared.userWorkoutManager,
+         userDietManager: UserDietManager = AppContainer.shared.userDietManager,
+         healthKitManager: HealthKitManager = AppContainer.shared.healthKitManager)
     {
         self.userSessionManager = userSessionManager
         self.navigationManager = navigationManager
-        self.goalManager = goalManager
         self.userAuthService = userAuthService
-        currentUser = userSessionManager.currentUser
-        stepGoal = goalManager.stepGoal
-        calorieGoal = goalManager.calorieGoal
-        sleepGoal = goalManager.sleepGoal
-    }
-
-    func saveGoals() {
-        goalManager.stepGoal = stepGoal
-        goalManager.calorieGoal = calorieGoal
-        goalManager.sleepGoal = sleepGoal
-    }
-
-    func calculateAge(from birthDate: Date) -> Int {
-        let now = Date()
-        let calendar = Calendar.current
-        let ageComponents = calendar.dateComponents([.year], from: birthDate, to: now)
-        return ageComponents.year ?? 0
-    }
-
-    func logout() {
-        let response = userAuthService.signOut()
-        if response {
-            print("Çıkış başarılı")
-            userSessionManager.clearSession()
-            navigationManager.navigate(to_: .login)
+        self.userWorkoutManager = userWorkoutManager
+        self.userDietManager = userDietManager
+        self.healthKitManager = healthKitManager
+        if AppMode.isPreview {
+            updatedUser = .dummyUser
         } else {
-            print("Çıkış hatası")
+            updatedUser = userSessionManager.currentUser
         }
+    }
+
+    func signOut() {
+        let result = userAuthService.signOut()
+        guard result else { return }
+        navigationManager.navigate(to_: .login)
+        userWorkoutManager.clearManager()
+        userDietManager.clearManager()
+        healthKitManager.clearManager()
+        userSessionManager.clearSession()
+    }
+
+    func updateUser() async -> Bool {
+        guard userSessionManager.currentUser != nil else { return false }
+        guard updatedUser != nil else { return false }
+        await userSessionManager.updateUser(updatedUser!)
+        return true
     }
 }

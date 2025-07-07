@@ -27,6 +27,10 @@ struct TabRootView: View {
                     NavigationView {
                         ProfileView()
                     }
+                case .track:
+                    NavigationView {
+                        TrackingView()
+                    }
                 }
             }
             CustomTabBar(selectedTab: $navigationManager.selectedTab, animation: animation)
@@ -41,6 +45,8 @@ struct TabRootView: View {
         .background(.cBackground)
         .environment(AppContainer.shared.userSessionManager)
         .environment(AppContainer.shared.navigationManager)
+        .environment(AppContainer.shared.healthKitManager)
+        .environment(AppContainer.shared.goalManager)
 }
 
 private struct CustomTabBar: View {
@@ -53,14 +59,13 @@ private struct CustomTabBar: View {
                 tabButton(tab)
             }
         }
-        .vPadding(.medium2)
+        .vPadding(.medium3)
         .hPadding(.medium3)
         .background(
             Color(.cGray)
                 .clipShape(.rect(cornerRadius: .normal))
                 .shadow(color: .black.opacity(0.2), radius: 20, x: 0, y: 10)
         )
-        .hPadding(.low3)
     }
 
     private func tabButton(_ tab: TabDestination) -> some View {
@@ -69,7 +74,7 @@ private struct CustomTabBar: View {
                 selectedTab = tab
             }
         } label: {
-            VStack {
+            VStack(spacing: .low3) {
                 ZStack {
                     if selectedTab == tab {
                         Circle()
@@ -78,12 +83,15 @@ private struct CustomTabBar: View {
                             .frame(width: .high2, height: .high2)
                             .scaleEffect(selectedTab == tab ? 1.2 : 1.0)
                     }
+
                     Image(systemName: tab.imageName)
-                        .font(.title2)
+                        .imageScale(.large)
                         .foregroundColor(selectedTab == tab ? .primary : .gray)
+                        .frame(height: .dynamicHeight(height: 0.025))
                 }
                 Text(tab.rawValue.capitalized)
                     .font(.footnote)
+                    .minimumScaleFactor(0.7)
                     .foregroundColor(selectedTab == tab ? .cBlue : .secondary)
             }
             .frame(maxWidth: .infinity)

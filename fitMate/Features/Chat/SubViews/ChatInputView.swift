@@ -14,13 +14,17 @@ struct ChatInputView: View {
 
     var body: some View {
         @Bindable var viewModelBindable = viewModel
-        HStack(spacing: .low) {
-            Image(systemName: "person.circle.fill")
+        HStack(alignment: .center, spacing: .low) {
+            Image(.profile1)
                 .resizable()
                 .scaledToFit()
-                .frame(height: .dynamicHeight(height: 0.045))
+                .frame(height: .dynamicHeight(height: 0.05))
+                .clipShape(Circle())
+                .allPadding(2)
+                .background(Circle().fill(.cGray.opacity(0.95)))
+                .shadow(color: .primary.opacity(0.1), radius: 4)
 
-            ZStack {
+            ZStack(alignment: .top) {
                 RoundedRectangle(cornerRadius: .normal)
                     .fill(.cGray)
                     .clipShape(.rect(cornerRadius: .low))
@@ -29,24 +33,29 @@ struct ChatInputView: View {
                     TextField(LocaleKeys.Chat.placeholder.localized, text: $viewModelBindable.inputText)
                         .hPadding()
                         .vPadding()
-                    PhotosPicker(
-                        selection: $selectedItem,
-                        matching: .images,
-                        photoLibrary: .shared()
-                    ) {
-                        Image(systemName: "photo.on.rectangle")
-                            .foregroundColor(.cBlue)
+                    if viewModelBindable.selectedAIModel == .openAI {
+                        PhotosPicker(
+                            selection: $selectedItem,
+                            matching: .images,
+                            photoLibrary: .shared()
+                        ) {
+                            Image(systemName: "photo.on.rectangle")
+                                .foregroundColor(.cBlue)
+                        }
+                        .onChange(of: selectedItem) { _, newItem in
+                            Task { await viewModel.selectImageAndPrepareUpload(newItem) }
+                        }
+                        .hPadding()
                     }
-                    .onChange(of: selectedItem) { _, newItem in
-                        Task { await viewModel.selectImageAndPrepareUpload(newItem) }
-                    }
-                    .hPadding()
+                }
+            }.frame(height: .dynamicHeight(height: 0.03))
+
+            Button {
+                Task {
+                    await viewModel.sendMessage()
                 }
             }
 
-            Button {
-                Task { await viewModel.sendMessage() }
-            }
             label: {
                 Image(systemName: "paperplane.fill")
                     .rotationEffect(.degrees(45))
@@ -54,7 +63,6 @@ struct ChatInputView: View {
             }
             .disabled(viewModel.isLoading)
         }
-        .frame(height: .dynamicHeight(height: 0.055))
-        .vPadding()
+        .bottomPadding(.low3)
     }
 }

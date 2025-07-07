@@ -12,45 +12,25 @@ struct HomeView: View {
     @Environment(HealthKitManager.self) private var healthKitManager
     @Environment(GoalManager.self) private var goalManager
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(UserWorkoutManager.self) private var userWorkoutManager
+    @Environment(UserDietManager.self) private var userDietManager
 
     var body: some View {
         ScrollView {
-            VStack(spacing: .normal) {
+            VStack(alignment: .leading, spacing: .normal) {
                 AppNameText()
-                MotivationCardView(
-                    message: viewModel.motivationMessages[0],
-                    image: .motivation2
-                )
-                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: .normal) {
-                    ForEach(viewModel.healthDataItems) { item in
-                        InformationCardView(
-                            title: item.title,
-                            text: "\(item.value) \(item.unit)"
-                        )
-                    }
-                }
-                VStack(alignment: .leading, spacing: .low2) {
-                    Text("Step Progress")
-                        .font(.headline)
-
-                    ProgressView(
-                        value: min(healthKitManager.stepCount / goalManager.stepGoal, 1.0)
-                    )
-                    .progressViewStyle(.linear)
-                    .tint(.cBlue)
-
-                    Text("\(Int(healthKitManager.stepCount))/\(Int(goalManager.stepGoal)) steps")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-                .vPadding(.normal)
-//                HStack {
-//                    InformationCardView(title: "Steps Today", text: healthKitManager.stepCount.description)
-//                    InformationCardView(title: "Calories Burned", text: "450")
-//                }
-                InformationCardView(title: "Workout Duration", text: "1hr 15min")
+                MotivationSliderView()
+                GeneralInformationView()
+                StepProgressView()
                 AskAIView()
-                HeartRateDataView()
+
+                if userWorkoutManager.logs.count > 0 {
+                    WorkoutSummaryView()
+                }
+
+                if userDietManager.dietPlan != nil {
+                    AverageProgressCard()
+                }
                 Spacer()
             }
             .allPadding()
@@ -74,58 +54,60 @@ struct HomeView: View {
     }
 }
 
-#Preview {
-    NavigationStack {
-        TabView {
-            HomeView()
-                .tabItem {
-                    Label("Home", systemImage: "house")
-                }
-        }
-    }
-}
-
-private struct InformationCardView: View {
-    let title: String
-    let text: String
+private struct MotivationSliderView: View {
+    @State private var selectedIndex: Int = 0
+    private let images: [ImageResource] = [.motivation, .motivation2]
     var body: some View {
-        ZStack(alignment: .leading) {
-            RoundedRectangle(cornerRadius: .normal)
-                .fill(.cGray)
-                .frame(height: .dynamicHeight(height: 0.125))
-//                .foregroundStyle(.cGray)
+        ZStack(alignment: .top) {
+            switch selectedIndex {
+            case 0:
+                MotivationCardView(
+                    message: LocaleKeys.Home.Motivation.first.localized,
+                    image: .motivation
+                )
 
-//                .shadow(color: .primary.opacity(0.2), radius: 2, x: 0, y: 0)
-                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 4)
+            case 1:
+                MotivationCardView(
+                    message: LocaleKeys.Home.Motivation.second.localized,
+                    image: .motivation2
+                )
 
-            VStack(alignment: .leading, spacing: .low2) {
-                Text(title)
-                    .font(.subheadline)
-                    .bold()
-                Text(text)
-                    .font(.title3)
-                    .fontWeight(.heavy)
+            default:
+                MotivationCardView(
+                    message: LocaleKeys.Home.Motivation.first.localized,
+                    image: .motivation
+                )
             }
-            .allPadding()
+            HStack(spacing: .zero) {
+                ForEach(images.indices, id: \.self) { index in
+                    Rectangle()
+                        .fill(index == selectedIndex ? Color.cBlue : Color.cGray.opacity(0.5))
+                        .frame(height: 4)
+                        .onTapGesture {
+                            withAnimation {
+                                selectedIndex = index
+                            }
+                        }
+                }
+            }
         }
+        .animation(.easeInOut, value: selectedIndex)
+        .clipShape(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+        )
+        .shadow(radius: 5)
     }
 }
 
-private struct ToolbarUserView: View {
+private struct GeneralInformationView: View {
     @Environment(HomeViewModel.self) private var viewModel
-    @Environment(UserSessionManager.self) private var userSessionManager
     var body: some View {
-        HStack(spacing: 8) {
-            Image(systemName: "person.circle.fill")
-                .font(.title)
-            VStack(alignment: .leading) {
-                Text(viewModel.greetingMessage().localized + ",")
-                    .font(.headline)
-                    .bold()
-                Text(userSessionManager.currentUser?.name ?? "Kullanıcı Adı")
-                    .foregroundColor(.cBlue)
-                    .font(.subheadline)
-                    .bold()
+        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: .normal) {
+            ForEach(viewModel.healthDataItems) { item in
+                InformationCardView(
+                    title: item.title,
+                    text: "\(item.value) \(item.unit)"
+                )
             }
         }
     }
@@ -143,38 +125,7 @@ private struct ToolbarNotificationView: View {
     }
 }
 
-private struct MotivationCardView: View {
-    let message: String
-    let image: ImageResource
-    var body: some View {
-        ZStack(alignment: .bottomLeading) {
-            Image(image)
-                .resizable()
-                .scaledToFill()
-                .frame(height: 200)
-                .clipped()
-                .overlay(
-                    LinearGradient(
-                        colors: [.black.opacity(0.1), .black.opacity(0.6)],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
-                .clipShape(
-                    RoundedRectangle(cornerRadius: 16, style: .continuous)
-                )
-                .shadow(radius: 5)
-
-            Text(message)
-                .font(.headline)
-                .foregroundColor(.white)
-                .allPadding()
-        }
-    }
-}
-
 private struct AskAIView: View {
-//    @Environment(HomeTabViewModel.self) private var viewModel
     @Environment(NavigationManager.self) private var navigationManager
     var body: some View {
         HStack {
@@ -182,20 +133,53 @@ private struct AskAIView: View {
                 .font(.title)
                 .foregroundColor(.cBlue)
             VStack(alignment: .leading) {
-                Text("Ask your AI Coach")
+                Text(LocaleKeys.Home.AskAI.title.localized)
                     .font(.headline)
                     .bold()
-                Text("Need workout tips? Nutrition advice?")
+                Text(LocaleKeys.Home.AskAI.subTitle.localized)
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
             Spacer()
             Image(systemName: "chevron.right")
         }
-        .vPadding(.normal)
-//        .hPadding(.low2)
+        .card(cornerRadius: .low, padding: .low)
         .onTapGesture {
             navigationManager.changeSelectedTab(tab: .chat)
         }
+    }
+}
+
+private struct StepProgressView: View {
+    @Environment(HealthKitManager.self) private var healthKitManager
+    @Environment(UserSessionManager.self) private var userSessionManager
+    var body: some View {
+        VStack(alignment: .leading, spacing: .low2) {
+            Text(LocaleKeys.Home.stepTitle.localized)
+                .font(.headline).bold()
+
+            ProgressView(
+                value: min(healthKitManager.stepCount / Double(userSessionManager.currentUser?.stepGoal ?? 10000), 1.0)
+            )
+            .progressViewStyle(.linear)
+            .tint(.cBlue)
+
+            Text("\(Int(healthKitManager.stepCount))/\(Int(userSessionManager.currentUser?.stepGoal ?? 10000)) \(LocaleKeys.Measurement.steps.localized)")
+                .font(.caption)
+                .foregroundColor(.secondary)
+        }
+        .card(cornerRadius: .low, padding: .low)
+    }
+}
+
+#Preview {
+    NavigationStack {
+        HomeView()
+            .environment(AppContainer.shared.healthKitManager)
+            .environment(AppContainer.shared.goalManager)
+            .environment(AppContainer.shared.navigationManager)
+            .environment(AppContainer.shared.userSessionManager)
+            .environment(AppContainer.shared.userWorkoutManager)
+            .environment(AppContainer.shared.userDietManager)
     }
 }

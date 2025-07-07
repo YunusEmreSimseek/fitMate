@@ -9,43 +9,43 @@ import Foundation
 
 @Observable
 final class DietViewModel {
-    var dietPlan: DietModel?
     var isLoading = false
     var showStartSheet = false
+    var activeSheet: ActiveSheet?
+    var showAddDietPlanSuccessSnackbar = false
+    var showAddDailyLogSuccessSnackbar = false
 
-    private let userSessionManager: UserSessionManager
-    private let dietService: DietService
-    private let navigationManager: NavigationManager
+    let userDietManager: UserDietManager
 
     init(
-        userSessionManager: UserSessionManager = AppContainer.shared.userSessionManager,
-        dietService: DietService = AppContainer.shared.dietService,
-        navigationManager: NavigationManager = AppContainer.shared.navigationManager
+        userDietManager: UserDietManager = AppContainer.shared.userDietManager
     ) {
-        self.userSessionManager = userSessionManager
-        self.dietService = dietService
-        self.navigationManager = navigationManager
-        isPreview()
-    }
-
-    func loadDietPlan() async {
-        guard let userId = userSessionManager.currentUser?.id else { return }
-        isLoading = true
-        defer { isLoading = false }
-        dietPlan = await dietService.fetchDiet(for: userId)
+        self.userDietManager = userDietManager
     }
 
     func saveDietPlan(_ plan: DietModel) async {
-        guard let userId = userSessionManager.currentUser?.id else { return }
         isLoading = true
         defer { isLoading = false }
-        await dietService.saveDiet(plan, for: userId)
-        dietPlan = plan
+        await userDietManager.addDietPlan(plan)
+        showAddDietPlanSuccessSnackbar = true
     }
 
-    func isPreview() {
-        if AppMode.isPreview {
-            dietPlan = DietModel.dummyDiet
+    func saveDailyLog(log: DailyDietModel) async {
+        isLoading = true
+        defer { isLoading = false }
+        await userDietManager.addDailyLog(log)
+        showAddDailyLogSuccessSnackbar = true
+    }
+
+    enum ActiveSheet: Identifiable {
+        case addDietPlan
+        case addDailyLog
+
+        var id: String {
+            switch self {
+            case .addDietPlan: return "addDietPlan"
+            case .addDailyLog: return "addDailyLog"
+            }
         }
     }
 }

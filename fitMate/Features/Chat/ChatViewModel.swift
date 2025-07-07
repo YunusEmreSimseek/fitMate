@@ -13,10 +13,17 @@ final class ChatViewModel {
     var chat: ChatModel?
     var inputText = ""
     var isLoading = false
+    var isLoadingResponse = false
     var hasAppeared: Bool = false
     var selectedImage: UIImage?
     var selectedImageUrl: String?
     var selectedAIModel: AIModel = .mistralAI
+    var suggestion: Suggestion?
+    var showDeleteChatSheet: Bool = false
+    var showPremiumAlert: Bool = false
+    var showSuggestionAppliedSnackbar: Bool = false
+    var showDeleteSuccessSnackbar: Bool = false
+    var chatToDelete: ChatModel?
 
     private let userSessionManager: UserSessionManager
     private let openAIService: AIServiceProtocol
@@ -26,7 +33,8 @@ final class ChatViewModel {
 
     init(
         userSessionManager: UserSessionManager = AppContainer.shared.userSessionManager,
-        openAIService: AIServiceProtocol = AppContainer.shared.openAIService,
+//        openAIService: AIServiceProtocol = AppContainer.shared.openAIService,
+        openAIService: AIServiceProtocol = OpenAIServicee(),
         mistralAIService: AIServiceProtocol = AppContainer.shared.mistralAIService,
         chatService: ChatService = AppContainer.shared.chatService,
         storageService: StorageService = AppContainer.shared.storageService
@@ -36,9 +44,18 @@ final class ChatViewModel {
         self.mistralAIService = mistralAIService
         self.chatService = chatService
         self.storageService = storageService
+        if AppMode.isPreview {
+            suggestion = .dummy
+        }
     }
 
     func changeSelectedAIModel(to model: AIModel) async {
+        guard let user = userSessionManager.currentUser else { return }
+        if model == .openAI, user.isPremium != true {
+            showPremiumAlert = true
+            return
+        }
+
         selectedAIModel = model
         hasAppeared = false
         await getChatHistory()
@@ -66,7 +83,9 @@ final class ChatViewModel {
         let chatId = "\(userId)_\(selectedAIModel.rawValue)"
         do {
             let existingChat = try await chatService.fetchChat(for: chatId)
-            chat = existingChat
+            withAnimation(.easeInOut(duration: 0.2)) {
+                chat = existingChat
+            }
 
         } catch {
             chat = ChatModel(userId: userId, aiModel: selectedAIModel)
@@ -74,27 +93,31 @@ final class ChatViewModel {
     }
 
     func sendMessage() async {
-        guard !inputText.trimmingCharacters(in: .whitespaces).isEmpty else {
-            return
-        }
+        guard !inputText.trimmingCharacters(in: .whitespaces).isEmpty else { return }
 
         guard chat != nil else { return }
 
+        if AppMode.isPreview {
+            chat?.messages.append(MessageModel(role: .user, text: inputText))
+            return
+        }
+
         var aiReply = ""
-        isLoading = true
+        isLoadingResponse = true
         defer {
-            isLoading = false
+            isLoadingResponse = false
         }
         do {
             if selectedImageUrl != nil {
                 aiReply = try await sendMessageWithImage()
             } else {
-                aiReply = try await sendOnlyMessage()
+                aiReply = try await sendMessageOnSuggestionType()
             }
-            print("AI Cevabı:", aiReply)
             // 4. AI mesajını ekle
             let aiMessage = MessageModel(role: .assistant, text: aiReply)
-            chat!.addMessage(aiMessage)
+            withAnimation(.easeInOut(duration: 0.2)) {
+                chat!.addMessage(aiMessage)
+            }
 
             // 5. Sohbeti kaydet
             try await chatService.addChat(chat: chat!)
@@ -110,14 +133,29 @@ final class ChatViewModel {
     private func sendOnlyMessage() async throws -> String {
         // Sadece metinle cevap al
         let aiService = currentAIService()
-        let prompt = buildFullPromptAsList()
+//        let prompt = buildFullPromptAsList()
         let message = MessageModel(role: .user, text: inputText)
         chat!.addMessage(message)
         inputText = ""
         do {
-            let result = try await aiService.sendMessage(prompt)
-            print("Sadece mesaj gonderildi")
+//            let result = try await aiService.sendMessage(prompt)
+            let result = try await aiService.sendMessage(chat!.messages)
             return result
+        } catch {
+            print("Error: \(error)")
+            return "Sorry, I couldn't process your request."
+        }
+    }
+
+    private func sendMessageOnSuggestionType() async throws -> String {
+        let aiService = currentAIService()
+        let message = MessageModel(role: .user, text: inputText)
+        chat!.addMessage(message)
+        inputText = ""
+        do {
+            let result = try await aiService.sendMessageOnSuggestionType(chat!.messages)
+            if let suggestion = result.suggestion { self.suggestion = suggestion }
+            return result.answer
         } catch {
             print("Error: \(error)")
             return "Sorry, I couldn't process your request."
@@ -127,7 +165,6 @@ final class ChatViewModel {
     private func sendMessageWithImage() async throws -> String {
         // Görsel + mesaj birlikte gönder
         let aiService = currentAIService()
-        let prompt = buildFullPrompt()
         let message = MessageModel(
             role: .user,
             text: inputText,
@@ -138,7 +175,7 @@ final class ChatViewModel {
         do {
             let result = try await aiService.sendMessageWithImage(
                 imageUrl: selectedImageUrl!,
-                message: prompt
+                messages: chat!.messages
             )
             print("Mesaj + metin gonderildi")
             return result
@@ -191,22 +228,16 @@ final class ChatViewModel {
         return prompt
     }
 
-    private func buildFullPromptAsList(limit: Int = 10) -> [String] {
-        var messages: [String] = []
-        let lastMessages = chat!.messages.suffix(limit)
-
-        for message in lastMessages {
-            switch message.role {
-            case .user:
-                messages.append("User: \(message.text)")
-            case .assistant:
-                messages.append("AI: \(message.text)")
-            case .system:
-                continue
-            }
+    func deleteChatHistory() async {
+        guard chatToDelete != nil else { return }
+        isLoading = true
+        defer { isLoading = false }
+        chatToDelete!.messages.removeAll()
+        chatToDelete!.messages = [.welcomeMessage]
+        try? await chatService.updateChat(chat: chatToDelete!)
+        withAnimation(.easeInOut(duration: 0.2)) {
+            chat = chatToDelete
+            showDeleteSuccessSnackbar = true
         }
-
-        messages.append("User: \(inputText)")
-        return messages
     }
 }

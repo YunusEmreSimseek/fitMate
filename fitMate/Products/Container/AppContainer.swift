@@ -59,6 +59,34 @@ final class AppContainer {
         return instance
     }
 
+    var userWorkoutManager: UserWorkoutManager {
+        guard let instance = container.resolve(UserWorkoutManager.self) else {
+            fatalError("UserWorkoutManager not registered")
+        }
+        return instance
+    }
+
+    var userDietManager: UserDietManager {
+        guard let instance = container.resolve(UserDietManager.self) else {
+            fatalError("UserDietManager not registered")
+        }
+        return instance
+    }
+
+    var unitManager: UnitManager {
+        guard let instance = container.resolve(UnitManager.self) else {
+            fatalError("UnitManager not registered")
+        }
+        return instance
+    }
+
+    var appStartupStateManager: AppStartupStateManager {
+        guard let instance = container.resolve(AppStartupStateManager.self) else {
+            fatalError("AppStartupStateManager not registered")
+        }
+        return instance
+    }
+
     // App services
     var userService: IUserService {
         guard let instance = container.resolve(IUserService.self) else {
@@ -116,6 +144,13 @@ final class AppContainer {
         return instance
     }
 
+    var workoutService: WorkoutService {
+        guard let instance = container.resolve(WorkoutService.self) else {
+            fatalError("WorkoutService not registered")
+        }
+        return instance
+    }
+
     private func registerDependencies() {
         container.register(UserSessionManager.self) { _ in
             UserSessionManager()
@@ -139,6 +174,22 @@ final class AppContainer {
 
         container.register(SecretsManager.self) { _ in
             SecretsManager()
+        }.inObjectScope(.container)
+
+        container.register(UserWorkoutManager.self) { _ in
+            UserWorkoutManager()
+        }.inObjectScope(.container)
+
+        container.register(UserDietManager.self) { _ in
+            UserDietManager()
+        }.inObjectScope(.container)
+
+        container.register(UnitManager.self) { _ in
+            UnitManager()
+        }.inObjectScope(.container)
+
+        container.register(AppStartupStateManager.self) { _ in
+            AppStartupStateManager()
         }.inObjectScope(.container)
 
         container.register(IUserService.self) { _ in
@@ -171,6 +222,10 @@ final class AppContainer {
 
         container.register(DietService.self) { _ in
             DietService()
+        }.inObjectScope(.container)
+
+        container.register(WorkoutService.self) { _ in
+            WorkoutService()
         }.inObjectScope(.container)
     }
 }

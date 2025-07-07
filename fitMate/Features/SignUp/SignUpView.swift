@@ -8,36 +8,21 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @State private var viewModel: SignUpViewModel
-
-    init(
-        userSessionManager: UserSessionManager = AppContainer.shared.userSessionManager,
-        navigationManager: NavigationManager = AppContainer.shared.navigationManager,
-        userService: IUserService = AppContainer.shared.userService,
-        userAuthService: IUserAuthService = AppContainer.shared.userAuthService
-    ) {
-        _viewModel = State(initialValue: SignUpViewModel(
-            userSessionManager: userSessionManager,
-            navigationManager: navigationManager,
-            userService: userService,
-            userAuthService: userAuthService))
-    }
+    @State private var viewModel: SignUpViewModel = .init()
 
     var body: some View {
         ZStack {
             DynamicBgImage()
 
-            ScrollView {
-                VStack(spacing: .high3) {
-                    TopTitlesColumn()
+            VStack(spacing: .high3) {
+                TopTitlesColumn()
 
-                    CenterFieldsAndButtonColumn()
+                CenterFieldsAndButtonColumn()
 
-                    BottomTextsRow()
-                }
-                .ignoresSafeArea(.keyboard)
-                .allPadding()
+                BottomTextsRow()
             }
+            .ignoresSafeArea(.keyboard)
+            .allPadding()
         }
         .environment(viewModel)
         .modifier(TopBarLoadingViewModifier(isLoading: viewModel.isLoading))
@@ -49,7 +34,7 @@ private struct TopTitlesColumn: View {
         VStack {
             AppNameText()
             Text(LocaleKeys.SignUp.title.localized)
-                .font(.title2)
+                .font(.title3)
                 .fontWeight(.bold)
         }
     }
@@ -59,36 +44,33 @@ private struct CenterFieldsAndButtonColumn: View {
     @Environment(SignUpViewModel.self) private var viewModel
     var body: some View {
         @Bindable var viewModel = viewModel
-        VStack(alignment: .leading,spacing: .normal) {
+        VStack(alignment: .leading, spacing: .normal) {
             VStack(alignment: .leading, spacing: .low) {
                 VStack(alignment: .leading, spacing: .low3) {
                     Text(LocaleKeys.SignUp.name.localized)
-                        .font(.normal)
-                        .fontWeight(.medium)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.secondary)
                     NameField(text: $viewModel.nameValue)
                 }
                 VStack(alignment: .leading, spacing: .low3) {
                     Text(LocaleKeys.SignUp.email.localized)
-                        .font(.normal)
-                        .fontWeight(.medium)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.secondary)
                     EmailField(text: $viewModel.emailValue)
                 }
                 VStack(alignment: .leading, spacing: .low3) {
                     Text(LocaleKeys.SignUp.password.localized)
-                        .font(.normal)
-                        .fontWeight(.medium)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.secondary)
                     PasswordField(text: $viewModel.passwordValue)
-                }
-                VStack(alignment: .leading, spacing: .low3) {
-                    Text(LocaleKeys.SignUp.repeatPassword.localized)
-                        .font(.normal)
-                        .fontWeight(.medium)
-                    PasswordField(text: $viewModel.repeatPasswordValue)
                 }
             }
             if let errorMessage = viewModel.errorMessage {
                 Text(errorMessage.localized)
-                    .font(.normal)
+                    .font(.subheadline)
                     .foregroundColor(.red)
                     .multilineTextAlignment(.leading)
             }
@@ -118,4 +100,5 @@ private struct BottomTextsRow: View {
 
 #Preview {
     SignUpView()
+        .environment(SignUpViewModel())
 }

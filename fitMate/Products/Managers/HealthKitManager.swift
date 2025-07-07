@@ -21,6 +21,14 @@ final class HealthKitManager {
 
     init() { Task { await requestAuthorization() } }
 
+    func clearManager() {
+        stepCount = 0
+        activeEnergyBurned = 0
+        distanceWalkingRunning = 0
+        averageHeartRate = 0
+        sleepHours = 0
+    }
+
     private func requestAuthorization() async {
         guard HKHealthStore.isHealthDataAvailable() else {
             print("Health data not available.")
@@ -154,5 +162,46 @@ final class HealthKitManager {
         )
 
         healthDataService.saveHealthData(healthData, for: userID)
+    }
+
+    func fetchWeeklySteps() async -> Double {
+        await withCheckedContinuation { continuation in
+            guard let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount) else {
+                continuation.resume(returning: 0)
+                return
+            }
+
+            let calendar = Calendar.current
+            let now = Date()
+            guard let startDate = calendar.date(byAdding: .day, value: -6, to: now) else {
+                continuation.resume(returning: 0)
+                return
+            }
+
+            let predicate = HKQuery.predicateForSamples(withStart: startDate, end: now, options: .strictStartDate)
+
+            var interval = DateComponents()
+            interval.day = 1
+
+            let query = HKStatisticsCollectionQuery(
+                quantityType: stepType,
+                quantitySamplePredicate: predicate,
+                options: .cumulativeSum,
+                anchorDate: startDate,
+                intervalComponents: interval
+            )
+
+            query.initialResultsHandler = { _, results, _ in
+                var totalSteps: Double = 0
+                results?.enumerateStatistics(from: startDate, to: now) { stat, _ in
+                    if let quantity = stat.sumQuantity() {
+                        totalSteps += quantity.doubleValue(for: .count())
+                    }
+                }
+                continuation.resume(returning: totalSteps)
+            }
+
+            HKHealthStore().execute(query)
+        }
     }
 }

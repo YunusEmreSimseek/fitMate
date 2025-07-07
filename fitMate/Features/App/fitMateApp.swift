@@ -9,29 +9,51 @@ import FirebaseAuth
 import FirebaseCore
 import SwiftUI
 
+@Observable
+final class AppStartupStateManager {
+    enum LaunchState {
+        case loading
+        case loaded
+    }
+
+    var state: LaunchState = .loading
+}
+
 @main
 struct fitMateApp: App {
-    // App delegate for Firebase setup
+    // App delegate for Initialize
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-
-    // App launch check
-    @AppStorage("isFirstLaunch") var isFirstLaunch: Bool = true
+    private var startupState = AppContainer.shared.appStartupStateManager
 
     // App environments
     @State var userSessionManager: UserSessionManager = AppContainer.shared.userSessionManager
     @State var navigationManager: NavigationManager = AppContainer.shared.navigationManager
     @State var healthKitManager: HealthKitManager = AppContainer.shared.healthKitManager
     @State var goalManager: GoalManager = AppContainer.shared.goalManager
+    @State var userWorkoutManager: UserWorkoutManager = AppContainer.shared.userWorkoutManager
+    @State var userDietManager: UserDietManager = AppContainer.shared.userDietManager
+    @State var unitManager: UnitManager = AppContainer.shared.unitManager
 
     var body: some Scene {
         WindowGroup {
             NavigationContainer(navigationManager: navigationManager) {
-                RootRouterView()
+                Group {
+                    switch startupState.state {
+                    case .loading:
+                        SplashView()
+                    case .loaded:
+                        RootRouterView()
+                    }
+                }
             }
         }
         .environment(userSessionManager)
         .environment(healthKitManager)
         .environment(goalManager)
+        .environment(userWorkoutManager)
+        .environment(userDietManager)
+        .environment(unitManager)
+        .environment(startupState)
     }
 }
 
@@ -46,7 +68,7 @@ private struct RootRouterView: View {
             } else {
                 WelcomeView()
                     .onAppear {
-                        // isFirstLaunch = false // use when ready to disable onboarding
+                        isFirstLaunch = false
                     }
             }
         } else {

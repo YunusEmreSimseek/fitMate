@@ -15,14 +15,13 @@ struct PasswordField: View {
             Image(systemName: "lock.fill")
                 .foregroundStyle(.cBlue)
             SecureField("", text: $text)
-                .font(.normal)
                 .keyboardType(.asciiCapable)
                 .textContentType(.password)
                 .submitLabel(.done)
                 .autocorrectionDisabled()
                 .textInputAutocapitalization(.never)
                 .focused($isFocused)
-                .allPadding(.medium3)
+                .allPadding()
         }
         .hPadding()
         .background(

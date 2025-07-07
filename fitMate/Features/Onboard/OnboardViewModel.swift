@@ -13,7 +13,7 @@ final class OnboardViewModel {
     var progress: Int = 0
     var isLoading: Bool = false
     var currentUser: UserModel
-    var selectedGender: Gender = .none
+    var selectedGender: Gender = .male
     var selectedDate: Date = .init()
     var selectedHeight: Int = 175
     var selectedWeight: Int = 75
@@ -55,11 +55,11 @@ final class OnboardViewModel {
     func saveAndNavigateToHomeView() async {
         isLoading = true
         defer { isLoading = false }
-        currentUser.gender = selectedGender
+//        currentUser.gender = selectedGender
         currentUser.birthDate = selectedDate
         currentUser.height = selectedHeight
         currentUser.weight = selectedWeight
-        currentUser.goals = selectedGoals
+//        currentUser.goals = selectedGoals
         currentUser.stepGoal = 10000
         currentUser.calorieGoal = 500
         currentUser.sleepGoal = 8
@@ -74,8 +74,8 @@ final class OnboardViewModel {
         }
     }
 
-    func changeGender(gender: Gender) {
-        selectedGender = gender
+    func changeGender(gender _: Gender) {
+//        selectedGender = gender
     }
 
     func selectGoal(goal: GoalModel) {

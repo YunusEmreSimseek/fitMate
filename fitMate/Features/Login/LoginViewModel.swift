@@ -19,16 +19,22 @@ final class LoginViewModel {
     private var navigationManager: NavigationManager
     private var userService: IUserService
     private var userAuthService: IUserAuthService
+    private var userWorkoutManager: UserWorkoutManager
+    private var userDietManager: UserDietManager
 
-    init(userSessionManager: UserSessionManager,
-         navigationManager: NavigationManager,
-         userService: IUserService,
-         userAuthService: IUserAuthService)
+    init(userSessionManager: UserSessionManager = AppContainer.shared.userSessionManager,
+         navigationManager: NavigationManager = AppContainer.shared.navigationManager,
+         userService: IUserService = AppContainer.shared.userService,
+         userAuthService: IUserAuthService = AppContainer.shared.userAuthService,
+         userWorkoutManager: UserWorkoutManager = AppContainer.shared.userWorkoutManager,
+         userDietManager: UserDietManager = AppContainer.shared.userDietManager)
     {
         self.userSessionManager = userSessionManager
         self.navigationManager = navigationManager
         self.userService = userService
         self.userAuthService = userAuthService
+        self.userWorkoutManager = userWorkoutManager
+        self.userDietManager = userDietManager
     }
 
     func navigateToSignUpView() {
@@ -41,10 +47,13 @@ final class LoginViewModel {
         do {
             try validateLoginForm()
             let result = try await userAuthService.signIn(
-                email: emailValue, password: passwordValue)
+                email: emailValue, password: passwordValue
+            )
             let uid = result.user.uid
             let user = try await userService.fetchUser(by: uid)
             userSessionManager.updateSession(user)
+            await userWorkoutManager.loadManager()
+            await userDietManager.loadManager()
             navigationManager.navigate(to_: .tabRoot)
         } catch let error as UserAuthServiceError {
             errorMessage = error.userFriendlyMessage
@@ -64,10 +73,6 @@ final class LoginViewModel {
 
         guard emailValue.isValidEmail() else {
             throw UserAuthServiceError.invalidEmail
-        }
-
-        guard passwordValue.isValidPassword() else {
-            throw UserAuthServiceError.weakPassword
         }
     }
 }

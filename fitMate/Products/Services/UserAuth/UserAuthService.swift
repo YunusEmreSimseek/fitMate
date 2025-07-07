@@ -41,7 +41,7 @@ final class UserAuthService: IUserAuthService {
                     continuation.resume(returning: result)
                 } else {
                     self.logManager.error("[UserAuthService] Sign in failed: Unknown error")
-                    continuation.resume(throwing: UserAuthServiceError.unknownError)
+                    continuation.resume(throwing: UserAuthServiceError.wrongPassword)
                 }
             }
         }

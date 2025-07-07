@@ -8,7 +8,8 @@
 import Foundation
 
 protocol AIServiceProtocol {
-    var userSessionManager: UserSessionManager { get }
-    func sendMessage(_ messages: [String]) async throws -> String
-    func sendMessageWithImage(imageUrl: String, message: String) async throws -> String
+//    var userSessionManager: UserSessionManager { get }
+    func sendMessage(_ messages: [MessageModel]) async throws -> String
+    func sendMessageWithImage(imageUrl: String, messages: [MessageModel]) async throws -> String
+    func sendMessageOnSuggestionType(_ messages: [MessageModel]) async throws -> SuggestionPayload
 }

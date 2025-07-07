@@ -11,6 +11,7 @@ struct AvatarView: View {
     let image: Image
     var size: AvatarSize = .medium
     var useBackground: Bool = true
+    var bgColor: Color = .gray.opacity(0.2)
     var body: some View {
         image
             .resizable()
@@ -20,7 +21,8 @@ struct AvatarView: View {
             .if(useBackground) { view in
                 view
                     .padding(2)
-                    .background(Circle().fill(Color.gray.opacity(0.2)))
+                    .background(Circle().fill(bgColor))
+                    .shadow(color: .primary.opacity(0.2), radius: 4)
             }
     }
 }

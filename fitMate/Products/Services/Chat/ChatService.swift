@@ -8,12 +8,12 @@
 import FirebaseFirestore
 
 final class ChatService: IChatService {
-    private let db = Firestore.firestore()
+    private lazy var db = Firestore.firestore()
     private let chatsCollection = FirebaseCollections.chats.rawValue
 
     func addChat(chat: ChatModel) async throws {
         do {
-            try await db.collection(chatsCollection).document(chat.chatId).setData(from: chat)
+            try db.collection(chatsCollection).document(chat.chatId).setData(from: chat)
         } catch {
             throw ChatServiceError.networkError(error)
         }
@@ -25,7 +25,7 @@ final class ChatService: IChatService {
             return try snapshot.documents.compactMap { doc in
                 try doc.data(as: ChatModel.self)
             }
-        } catch let error as DecodingError {
+        } catch _ as DecodingError {
             throw ChatServiceError.decodingError
         } catch {
             throw ChatServiceError.networkError(error)
@@ -38,15 +38,21 @@ final class ChatService: IChatService {
             guard doc.exists else { throw ChatServiceError.chatNotFound }
             let chat = try doc.data(as: ChatModel.self)
             return chat
-        } catch let error as DecodingError {
+        } catch _ as DecodingError {
             throw ChatServiceError.decodingError
         } catch {
             throw ChatServiceError.networkError(error)
         }
     }
+    
+    func updateChat(chat: ChatModel) async throws {
+        do {
+            try db.collection(chatsCollection).document(chat.chatId).setData(from: chat, merge: true)
+        } catch {
+            throw ChatServiceError.networkError(error)
+        }
+    }
 }
-
-
 
 enum ChatServiceError: LocalizedError {
     case chatNotFound

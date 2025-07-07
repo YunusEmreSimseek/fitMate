@@ -50,6 +50,11 @@ private struct DividerView: View {
                 Rectangle()
                     .fill((index - 1) < viewModel.progress ? .cBlue : .gray)
                     .frame(height: 4)
+                    .onTapGesture {
+                        if (index - 1) < viewModel.progress {
+                            viewModel.progress = index
+                        }
+                    }
             }
         }
     }

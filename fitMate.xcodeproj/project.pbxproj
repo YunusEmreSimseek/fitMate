@@ -12,6 +12,7 @@
 		240793942DAAE3E3009E1A77 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 240793932DAAE3E3009E1A77 /* FirebaseCore */; };
 		240793962DAAE3E3009E1A77 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 240793952DAAE3E3009E1A77 /* FirebaseFirestore */; };
 		24975F502DB5DB81003CED73 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 24975F4F2DB5DB81003CED73 /* AsyncAlgorithms */; };
+		24DC52BD2E03C360007DF678 /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = 24DC52BC2E03C360007DF678 /* OpenAI */; };
 		24EDE5552CF4BAD50034AE3D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 24EDE5542CF4BAD50034AE3D /* Alamofire */; };
 		24EEAB012DBA7A800086C565 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 24EEAB002DBA7A800086C565 /* Swinject */; };
 /* End PBXBuildFile section */
@@ -72,6 +73,7 @@
 			files = (
 				24EDE5552CF4BAD50034AE3D /* Alamofire in Frameworks */,
 				240793962DAAE3E3009E1A77 /* FirebaseFirestore in Frameworks */,
+				24DC52BD2E03C360007DF678 /* OpenAI in Frameworks */,
 				24EEAB012DBA7A800086C565 /* Swinject in Frameworks */,
 				240793942DAAE3E3009E1A77 /* FirebaseCore in Frameworks */,
 				2400728E2DB098D800D2BCF9 /* FirebaseStorage in Frameworks */,
@@ -160,6 +162,7 @@
 				2400728D2DB098D800D2BCF9 /* FirebaseStorage */,
 				24975F4F2DB5DB81003CED73 /* AsyncAlgorithms */,
 				24EEAB002DBA7A800086C565 /* Swinject */,
+				24DC52BC2E03C360007DF678 /* OpenAI */,
 			);
 			productName = fitMate;
 			productReference = 24BFDE302CD3A40500052742 /* fitMate.app */;
@@ -199,6 +202,7 @@
 				240793902DAAE3E3009E1A77 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				24975F4E2DB5DB81003CED73 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
 				24EEAAFF2DBA7A800086C565 /* XCRemoteSwiftPackageReference "Swinject" */,
+				24DC52BB2E03C360007DF678 /* XCRemoteSwiftPackageReference "OpenAI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 24BFDE312CD3A40500052742 /* Products */;
@@ -540,6 +544,14 @@
 				minimumVersion = 1.0.3;
 			};
 		};
+		24DC52BB2E03C360007DF678 /* XCRemoteSwiftPackageReference "OpenAI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MacPaw/OpenAI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.3;
+			};
+		};
 		24EDE5532CF4BAD50034AE3D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -583,6 +595,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 24975F4E2DB5DB81003CED73 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */;
 			productName = AsyncAlgorithms;
+		};
+		24DC52BC2E03C360007DF678 /* OpenAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 24DC52BB2E03C360007DF678 /* XCRemoteSwiftPackageReference "OpenAI" */;
+			productName = OpenAI;
 		};
 		24EDE5542CF4BAD50034AE3D /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

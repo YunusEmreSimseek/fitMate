@@ -15,20 +15,21 @@ struct NameField: View {
             Image(systemName: "person.fill")
                 .foregroundStyle(.cBlue)
             TextField("", text: $text)
-                .font(.normal)
+//                .font(.normal)
                 .submitLabel(.done)
                 .keyboardType(.default)
                 .textContentType(.name)
                 .textInputAutocapitalization(.words)
                 .focused($isFocused)
-                .allPadding(.medium3)
+                .allPadding()
         }
         .hPadding()
         .background(
             RoundedRectangle(cornerRadius: .normal)
                 .fill(Color(.cGray))
-                .shadow(color: Color.black.opacity(0.1), radius: 6, x: 0, y: 2)
+                .shadow(color: Color.black.opacity(0.1), radius: 6)
         )
+        .contentShape(RoundedRectangle(cornerRadius: .normal))
         .onTapGesture {
             isFocused = true
         }

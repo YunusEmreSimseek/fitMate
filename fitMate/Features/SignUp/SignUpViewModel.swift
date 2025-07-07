@@ -12,40 +12,37 @@ final class SignUpViewModel {
     var nameValue: String = ""
     var emailValue: String = ""
     var passwordValue: String = ""
-    var repeatPasswordValue: String = ""
     var errorMessage: String?
     var isLoading: Bool = false
-    
+
     private var userSessionManager: UserSessionManager
     private var navigationManager: NavigationManager
     private var userAuthService: IUserAuthService
     private var userService: IUserService
-    
-    init(userSessionManager: UserSessionManager,
-         navigationManager: NavigationManager,
-         userService: IUserService,
-         userAuthService: IUserAuthService)
+
+    init(userSessionManager: UserSessionManager = AppContainer.shared.userSessionManager,
+         navigationManager: NavigationManager = AppContainer.shared.navigationManager,
+         userService: IUserService = AppContainer.shared.userService,
+         userAuthService: IUserAuthService = AppContainer.shared.userAuthService)
     {
         self.userSessionManager = userSessionManager
         self.navigationManager = navigationManager
         self.userService = userService
         self.userAuthService = userAuthService
     }
-    
+
     func navigateToLoginView() {
         navigationManager.navigate(to_: .login)
     }
-    
-    func navigateToOnboardView(user: UserModel) {
-        navigationManager.navigate(to_: .onboard(user: user))
+
+//    func navigateToOnboardView(user: UserModel) {
+//        navigationManager.navigate(to_: .onboard(user: user))
+//    }
+
+    func navigateToHomeView() {
+        navigationManager.navigate(to_: .tabRoot)
     }
-    
-    func checkPassword() throws {
-        guard passwordValue == repeatPasswordValue else {
-            throw UserAuthServiceError.passwordsDoNotMatch
-        }
-    }
-    
+
     func signUp() async {
         isLoading = true
         defer { isLoading = false }
@@ -57,39 +54,38 @@ final class SignUpViewModel {
                 email: emailValue,
                 password: passwordValue,
                 name: nameValue,
-                
+                createdAt: Date.now
             )
             try await userService.createUser(user: user)
             userSessionManager.updateSession(user)
-            navigateToOnboardView(user: user)
+//            navigateToOnboardView(user: user)
+            navigateToHomeView()
         } catch let error as UserAuthServiceError {
             errorMessage = error.userFriendlyMessage
         } catch {
             errorMessage = LocaleKeys.Error.unknownError
         }
     }
-    
+
     func validateSignUpForm() throws {
         guard nameValue.isNotEmpty() else {
             throw UserAuthServiceError.emptyName
         }
-           
+
         guard emailValue.isNotEmpty() else {
             throw UserAuthServiceError.emptyEmail
         }
-        
+
         guard passwordValue.isNotEmpty() else {
             throw UserAuthServiceError.emptyPassword
         }
-           
+
         guard emailValue.isValidEmail() else {
             throw UserAuthServiceError.invalidEmail
         }
-           
+
         guard passwordValue.isValidPassword() else {
             throw UserAuthServiceError.weakPassword
         }
-        
-        try checkPassword()
     }
 }

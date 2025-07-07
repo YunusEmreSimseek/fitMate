@@ -12,4 +12,5 @@ enum FirebaseCollections: String {
     case chats
     case healths
     case diets
+    case workouts
 }
