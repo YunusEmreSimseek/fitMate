@@ -47,11 +47,11 @@
 
 ## 📷 Screenshots
 
-| **Home** |
+| **Home** | **Home** |
 |:--:|:--:|
 | ![](screenshots/home_1.PNG) | ![](screenshots/home_2.PNG) |
 
-| **Chat** |
+| **Chat** | **Chat** | **Chat** |
 |:--:|:--:|:--:|
 | ![](screenshots/openai_1.PNG) | ![](screenshots/openai_2.PNG) | ![](screenshots/mistral.PNG) |
 
