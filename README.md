@@ -47,6 +47,19 @@
 
 ## 📷 Screenshots
 
-| ![](screenshots/login.PNG) | ![](screenshots/sign_up.PNG) |
+| **Home** |
 |:--:|:--:|
+| ![](screenshots/home_1.PNG) | ![](screenshots/home_2.PNG) |
+
+| **Chat** |
+|:--:|:--:|:--:|
+| ![](screenshots/openai_1.PNG) | ![](screenshots/openai_2.PNG) | ![](screenshots/mistral.PNG) |
+
+
 | **Login** | **SignUp** |
+|:--:|:--:|
+| ![](screenshots/login.PNG) | ![](screenshots/sign_up.PNG) |
+
+
+
+
