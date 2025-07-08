@@ -47,6 +47,6 @@
 
 ## 📷 Screenshots
 
-| ![](screenshots/login) | ![](screenshots/sign_up.png) |
+| ![](screenshots/login.PNG) | ![](screenshots/sign_up.PNG) |
 |:--:|:--:|
 | **Login** | **SignUp** |
