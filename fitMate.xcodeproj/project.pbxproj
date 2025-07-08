@@ -59,6 +59,11 @@
 			path = fitMate;
 			sourceTree = "<group>";
 		};
+		24F7C2CE2E1D3BFC006EC2C5 /* screenshots */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = screenshots;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +103,7 @@
 		24BFDE272CD3A40500052742 = {
 			isa = PBXGroup;
 			children = (
+				24F7C2CE2E1D3BFC006EC2C5 /* screenshots */,
 				24BFDE322CD3A40500052742 /* fitMate */,
 				241DAAF52DBEA234006FB4BC /* fitMateTests */,
 				2400728C2DB098D800D2BCF9 /* Frameworks */,
@@ -155,6 +161,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				24BFDE322CD3A40500052742 /* fitMate */,
+				24F7C2CE2E1D3BFC006EC2C5 /* screenshots */,
 			);
 			name = fitMate;
 			packageProductDependencies = (
@@ -441,6 +448,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"fitMate/Preview Content\"";
+				DEVELOPMENT_TEAM = YG9WQ8RW2A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = fitMate/Info.plist;
@@ -476,6 +484,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"fitMate/Preview Content\"";
+				DEVELOPMENT_TEAM = YG9WQ8RW2A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = fitMate/Info.plist;
