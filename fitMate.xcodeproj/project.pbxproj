@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2400728E2DB098D800D2BCF9 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2400728D2DB098D800D2BCF9 /* FirebaseStorage */; };
+		240606592E1D01C6009A703C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 240606582E1D01C6009A703C /* README.md */; };
 		240793922DAAE3E3009E1A77 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 240793912DAAE3E3009E1A77 /* FirebaseAuth */; };
 		240793942DAAE3E3009E1A77 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 240793932DAAE3E3009E1A77 /* FirebaseCore */; };
 		240793962DAAE3E3009E1A77 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 240793952DAAE3E3009E1A77 /* FirebaseFirestore */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		240606582E1D01C6009A703C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		241DAAF42DBEA234006FB4BC /* fitMateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = fitMateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		247626682DBE9EAD009F1772 /* Testing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Testing.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/Testing.framework; sourceTree = DEVELOPER_DIR; };
 		24BFDE302CD3A40500052742 /* fitMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fitMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +102,7 @@
 				241DAAF52DBEA234006FB4BC /* fitMateTests */,
 				2400728C2DB098D800D2BCF9 /* Frameworks */,
 				24BFDE312CD3A40500052742 /* Products */,
+				240606582E1D01C6009A703C /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -227,6 +230,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				240606592E1D01C6009A703C /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
