@@ -46,25 +46,32 @@
 
 ---
 
-## 📸 Screenshots
+## 📷 Screenshots
 
-### 🏠 Home
+| **🏠 Home** | **🏠 Home** |
+|:--:|:--:|
 | ![](screenshots/home_1.PNG) | ![](screenshots/home_2.PNG) |
 
-### 💬 Chat
+| **💬 Chat** | **💬 Chat** | **💬 Chat** |
+|:--:|:--:|:--:|
 | ![](screenshots/openai_1.PNG) | ![](screenshots/openai_2.PNG) | ![](screenshots/mistral.PNG) |
 
-### 🏋️ Workout
+| **🏋️ Workout** | **🏋️ Workout** | **🏋️ Workout** |
+|:--:|:--:|:--:|
 | ![](screenshots/workout.PNG) | ![](screenshots/add_workout.PNG) | ![](screenshots/add_workout_log.PNG) |
 
-### 🥗 Diet
+| **🥗 Diet** | **🥗 Diet** | **🥗 Diet** |
+|:--:|:--:|:--:|
 | ![](screenshots/diet.PNG) | ![](screenshots/add_diet.PNG) | ![](screenshots/add_diet_log.PNG) |
 
-### 👤 Profile
+| **👤 Profile** | **👤 Profile** | **👤 Profile** | **👤 Profile** |
+|:--:|:--:|:--:|:--:|
 | ![](screenshots/profile_1.PNG) | ![](screenshots/profile_2.PNG) | ![](screenshots/profile_details.PNG) | ![](screenshots/units.PNG) |
 
-### 🔐 Authentication
+| **🔐 Authentication** | **🔐 Authentication** |
+|:--:|:--:|
 | ![](screenshots/login.PNG) | ![](screenshots/sign_up.PNG) |
+
 
 ---
 
